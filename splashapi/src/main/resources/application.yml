@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: local
+logging:
+  level:
+    root : info
+    dev.danielk0121.test.kakaopay.splash: debug
+server:
+  servlet:
+    context-path: /splash
+  port: 8080
+
+# local
+---
+spring.profiles: local
+spring:
+  datasource: 
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver 
+      jdbc-url: "jdbc:mysql://192.168.56.101:3306/splash?characterEncoding=UTF-8&serverTimezone=Asia/Seoul"
+      username: splash 
+      password: 123123 
+
+# prod
+---
+spring.profiles: prod
+spring:
+  datasource: 
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver 
+      jdbc-url: "jdbc:mysql://192.168.56.101:3306/splash?characterEncoding=UTF-8&serverTimezone=Asia/Seoul"
+      username: splash 
+      password: 123123 

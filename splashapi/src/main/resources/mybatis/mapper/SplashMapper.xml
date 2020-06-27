@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.danielk0121.test.kakaopay.splash.SplashMapper">
+
+	<select id="selectNow" resultType="String">
+		select now()
+	</select>
+	
+	<select id="selectSplashListLimit3" resultType="Splash">
+		select /* selectSplashListLimit3 */
+			seq, 
+			createUserId, token, roomId, 
+			splashAmount, splashUserCount, createdDate
+		from splash
+		limit 3
+	</select>
+	
+	<insert id="insertSplash" parameterType="Splash">
+		INSERT INTO splash (
+			createUserId, token, roomId, 
+			splashAmount, splashUserCount, createdDate
+		) VALUES (
+			#{createUserId}, #{token}, #{roomId}, 
+			#{splashAmount}, #{splashUserCount}, NOW()
+		)
+	</insert>
+	
+	<select id="selectOneSplashByCreateUserIdAndTokenAndRoomId" parameterType="Splash" resultType="Splash">
+		SELECT /* selectOneSplashByCreateUserIdAndTokenAndRoomId */
+			seq, 
+			createUserId, token, roomId, 
+			splashAmount, splashUserCount, createdDate
+		FROM splash
+		WHERE createUserId = #{createUserId}
+			AND token = #{token}
+			AND roomId = #{roomId}
+	</select>
+	
+	<select id="selectOneSplashByCreateUserIdAndToken" parameterType="Splash" resultType="Splash">
+		SELECT /* selectOneSplashByCreateUserIdAndToken */
+			seq, 
+			createUserId, token, roomId, 
+			splashAmount, splashUserCount, createdDate
+		FROM splash
+		WHERE createUserId = #{createUserId}
+			AND token = #{token}
+	</select>
+
+</mapper>

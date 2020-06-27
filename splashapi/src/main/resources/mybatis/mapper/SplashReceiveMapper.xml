@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.danielk0121.test.kakaopay.splash.SplashReceiveMapper">
+
+	<select id="selectSplashReceiveListLimit3" resultType="SplashReceive">
+		select /* selectSplashReceiveListLimit3 */
+			seq, 
+			splashSeq, finishYn, 
+			receiveUserId, receiveAmount, 
+			regDate, updDate
+		from splash_receive
+		limit 3
+	</select>
+	
+	<insert id="insertSplashReceiveList" parameterType="List">
+		INSERT INTO splash_receive (
+			splashSeq, finishYn, receiveAmount, regDate
+		) VALUES 
+		<foreach collection="list" item="item" separator=", " >
+			(#{item.splashSeq}, #{item.finishYn}, #{item.receiveAmount}, NOW())
+		</foreach>
+	</insert>
+	
+	<select id="selectListSplashReceiveBySplashSeqAndFinishYnOrderbySeq" 
+		parameterType="SplashReceive"
+		resultType="SplashReceive"
+		>
+			SELECT /* selectListSplashReceiveBySplashSeqAndFinishYnOrderbySeq */
+				seq, splashSeq, finishYn, 
+				receiveUserId, receiveAmount, regDate, updDate
+			FROM splash_receive a
+			WHERE a.splashSeq = #{splashSeq}
+			ORDER BY a.seq
+	</select>
+	
+	<update id="updateSplashReceive"
+		parameterType="SplashReceive" 
+		>
+		UPDATE /* updateSplashReceive */ splash_receive a
+			SET a.finishYn = #{finishYn}, 
+				a.receiveUserId = #{receiveUserId}, 
+				a.updDate = NOW()
+			WHERE a.seq = #{seq}
+	</update>
+
+</mapper>
